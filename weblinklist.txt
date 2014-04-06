@@ -1,0 +1,48 @@
+Vibration  ||  http://android.konreu.com/developer-how-to/vibration-examples-for-android-phone-development/	
+Parse Web Page Source Code  ||  http://argillander.wordpress.com/2011/11/23/get-web-page-source-code-in-android/	
+Risner - 31 days of Programming  ||  http://chrisrisner.com/31-Days-of-Android	
+API Guides  ||  http://developer.android.com/guide/index.html	
+Dev Data Storage  ||  http://developer.android.com/guide/topics/data/index.html	
+Dev References  ||  http://developer.android.com/reference/	
+Developer Training  ||  http://developer.android.com/training/index.html	
+SQLite Tutorial  ||  http://hmkcode.com/android-simple-sqlite-database-tutorial/	
+SQLite Database Import-Export  ||  http://stackoverflow.com/questions/6540906/android-simple-export-and-import-of-sqlite-database	
+Android Menus  ||  http://www.bogotobogo.com/Android/android10Menus.php	
+Android JUnit Test  ||  http://www.bogotobogo.com/Android/android11JUnitTest.php#RunningTheTest	
+Configuring Rotation  ||  http://www.bogotobogo.com/Android/android15Rotation.php	
+Threads and Asynctask  ||  http://www.bogotobogo.com/Android/android22Threads.php	
+HTTP Internet Connection  ||  http://www.bogotobogo.com/Android/android23HTTP.php	
+Date & Time Picker,Clocks  ||  http://www.bogotobogo.com/Android/android8DatePickerTimePickerClocks.php	
+Google Search  ||  http://www.Google.com	
+Basics is Content Providers  ||  http://www.grokkingandroid.com/android-tutorial-content-provider-basics/	
+Use Content Providers  ||  http://www.grokkingandroid.com/android-tutorial-using-content-providers/	
+Blankenburg - 31 days of Programming  ||  http://www.jeffblankenburg.com/2010/09/30/31-days-of-windows-phone-7/	
+Button Animation  ||  http://www.learn-android-easily.com/2013/04/animating-button-in-android.html?m=1	
+Android Program - Basics and UI  ||  http://www.ntu.edu.sg/home/ehchua/programming/android/Android_BasicsUI.html	
+Android Tutorials - tutorialspoint.com  ||  http://www.tutorialspoint.com/android/	
+Camera  ||  http://www.tutorialspoint.com/android/android_camera.htm	
+Clipboard  ||  http://www.tutorialspoint.com/android/android_clipboard.htm	
+Content Providers  ||  http://www.tutorialspoint.com/android/android_content_providers.htm	
+Event Handling  ||  http://www.tutorialspoint.com/android/android_event_handling.htm	
+Fragments  ||  http://www.tutorialspoint.com/android/android_fragments.htm	
+Gestures  ||  http://www.tutorialspoint.com/android/android_gestures.htm	
+Connect to MySql  ||  http://www.tutorialspoint.com/android/android_php_mysql.htm	
+Send Emails  ||  http://www.tutorialspoint.com/android/android_sending_email.htm	
+Send SMS  ||  http://www.tutorialspoint.com/android/android_sending_sms.htm	
+Services  ||  http://www.tutorialspoint.com/android/android_services.htm	
+Java Tutorials tutorials point.com  ||  http://www.tutorialspoint.com/java/	
+Android Debug Bridge (adb)  ||  http://www.vogella.com/tutorials/AndroidCommandLine/article.html	
+Develop First App Tutorial  ||  https://developer.android.com/training/basics/firstapp/index.html?hl=it	
+GitHub - Chuck Bolin  ||  https://github.com/chuckbolin/	
+Novoda Github Files  ||  https://github.com/novoda?tab=repositories	
+Create Content Provider  ||  https://www.grokkingandroid.com/android-tutorial-writing-your-own-content-provider/	
+Add Action Bar || http://developer.android.com/training/basics/actionbar/index.html
+Supporting Different Devices || http://developer.android.com/training/basics/supporting-devices/index.html
+Managing the Lifecycle || http://developer.android.com/training/basics/activity-lifecycle/index.html
+Building a Dynamic UI with Fragments || http://developer.android.com/training/basics/fragments/index.html
+Saving Data || http://developer.android.com/training/basics/data-storage/index.html
+Interacting with Other Apps || http://developer.android.com/training/basics/intents/index.html
+Using Dialogs in Android Programming || http://www.vogella.com/tutorials/AndroidDialogs/article.html
+Android Applicaton and Activity Lifecycle || http://www.vogella.com/tutorials/AndroidLifeCycle/article.html
+Eli the Computer Guy || http://www.youtube.com/user/elithecomputerguy
+Dr. Douglas Schmidt Videos || https://www.youtube.com/channel/UCt-Wvc_ojTzGLpjhruIXYSw

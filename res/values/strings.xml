@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WebLinkManager</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_show">ShowActivity</string>
+    <string name="title_activity_delete">DeleteActivity</string>
+    <string name="title_activity_email">EmailActivity</string>
+    <string name="title_activity_sqlite">SQLiteActivity</string>
+    <string name="title_activity_my_sqlite_helper">MySQLiteHelper</string>
+    <string name="title_activity_export_import_db">ExportImportDB</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

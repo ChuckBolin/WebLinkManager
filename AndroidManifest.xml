@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chuckbolin.weblinkmanager"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.AddActivity"
+            android:label="@string/title_activity_add" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.ShowActivity"
+            android:label="@string/title_activity_show" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.DeleteActivity"
+            android:label="@string/title_activity_delete" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.EmailActivity"
+            android:label="@string/title_activity_email" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.SQLiteActivity"
+            android:label="@string/title_activity_sqlite" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.MySQLiteHelper"
+            android:label="@string/title_activity_my_sqlite_helper" >
+        </activity>
+        <activity
+            android:name="com.chuckbolin.weblinkmanager.ExportImportDB"
+            android:label="@string/title_activity_export_import_db" >
+        </activity>
+    </application>
+
+</manifest>
