@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Add Video Link</title>
+<title>Add Web Link</title>
 </head>
 <body>
 
 <?php  
   require "dbconnect.php";
-  print('<h1>Video Link Upload Status</h1>');
+  print('<h1>Add Web Link</h1>');
  
   $con = mysql_connect($sHostName,$sUserName,$sPassword);
   if (!$con)  {
@@ -16,8 +16,8 @@
   }
   mysql_select_db($sDbName, $con);
   
-  $sql="INSERT INTO $sDbName.tblVLinks(name, link, type, tags) 
-        VALUES('$_POST[name]','$_POST[link]','$_POST[type]','$_POST[tags]')";  
+  $sql="INSERT INTO $sDbName.tWebLinks(description, link) 
+        VALUES('$_POST[description]','$_POST[link]')";  
 
   if (!mysql_query($sql,$con)){
     die('Error: ' . mysql_error());
@@ -29,7 +29,7 @@
 ?>
 <br />
 
-<!-- <a href="iuAddVL.php">Return to Video Link Input Form</a><br /> -->
-<a href="vlinks.php">Return to Video Link Input Form</a><br />
+
+<a href="wlmManager.php">Return to Web Link Manager</a><br />
 </body>
 </html>
