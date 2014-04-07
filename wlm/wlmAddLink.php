@@ -9,7 +9,7 @@
 <?php  
   require "dbconnect.php";
   print('<h1>Add Web Link</h1>');
- 
+
   $con = mysql_connect($sHostName,$sUserName,$sPassword);
   if (!$con)  {
     die('Could not connect: ' . mysql_error());
@@ -23,9 +23,13 @@
     die('Error: ' . mysql_error());
   }
   echo "1 record added";
-  
   mysql_close($con);	 
-
+  
+  //$file = "http://www.mush4brains.com/files/weblinksmanager/weblinklist.txt";
+  $file = "/hsphere/local/home/cbprogra/mush4brains.com/files/weblinksmanager/weblinklist.txt";
+  $rowData = $_POST[description]." || ".$_POST[link]."\n";
+  echo $rowData;
+  file_put_contents($file, $rowData,FILE_APPEND);
 ?>
 <br />
 
