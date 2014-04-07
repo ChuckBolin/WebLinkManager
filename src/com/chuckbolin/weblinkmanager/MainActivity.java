@@ -56,7 +56,9 @@ public class MainActivity extends Activity {
 	private static int ADD_REQUEST_CODE = 115;  //arbitrary numbers to differentiate return
 	private static int EDIT_REQUEST_CODE = 120;
 	private static int EXPORT_IMPORT_CODE = 125;
-	final String textSource = "http://mush4brains.com/files/weblinksmanager/weblinklist5.txt";
+	final String textSource = "http://mush4brains.com/files/weblinksmanager/weblinklist.txt";
+	public int countRows = 0;
+	public boolean syncSuccess = false;
 	
 	MySQLiteHelper mDB = new MySQLiteHelper(this); //object used for all database operations
 		
@@ -78,7 +80,7 @@ public class MainActivity extends Activity {
 		//adds actionbar
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
-		actionBar.setSubtitle("Chuck Bolin - March 29, 2014");
+		actionBar.setSubtitle("Last Sync: ");
 		
 		mVibrator = (Vibrator)getSystemService(this.VIBRATOR_SERVICE);
 		
@@ -411,7 +413,12 @@ public class MainActivity extends Activity {
 			try {
 				thread.join();
 				UpdateListView(); //updates listview with database data
-				Toast.makeText(MainActivity.this, "Sync Complete!", Toast.LENGTH_SHORT).show();
+				if(syncSuccess)
+					Toast.makeText(MainActivity.this, "Sync Complete: " + Integer.toString(countRows) , Toast.LENGTH_SHORT).show();
+				else
+					Toast.makeText(MainActivity.this, "Sync failed to connect!", Toast.LENGTH_SHORT).show();
+				
+				countRows = 0;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				Toast.makeText(MainActivity.this, "Nothing to Sync", Toast.LENGTH_SHORT).show();
@@ -516,7 +523,7 @@ public class MainActivity extends Activity {
         	
         	//let's load everything in the database into a List<WebItems>
         	List<WebItem> webItems = mDB.getAllLinks();
-        	
+        	//int countRows = 0;
         	try{
     			URL url = new URL(textSource);
     			try{
@@ -524,7 +531,7 @@ public class MainActivity extends Activity {
 
     			BufferedReader in = new BufferedReader(isr);
     			String line;
-    			int countRows = 0;
+    			
     			
     			//loops through text file
     			while((line = in.readLine()) != null){
@@ -562,7 +569,7 @@ public class MainActivity extends Activity {
     				}//if (pos
     			}// while
     			in.close();
-    			
+    			syncSuccess = true;
     		}catch(MalformedURLException e){
     			Toast.makeText(getApplicationContext(), "Malformed URL", Toast.LENGTH_SHORT).show();
     		}catch(IOException e){
@@ -571,6 +578,7 @@ public class MainActivity extends Activity {
         	Log.d(TAG,"Step 3");	
 			}catch(Exception e){
 				//Toast.makeText(getApplicationContext(), "oops", Toast.LENGTH_SHORT).show();
+			
 			}
         } //run		
     }//class Task
