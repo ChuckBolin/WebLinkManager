@@ -15,10 +15,11 @@ package com.chuckbolin.weblinkmanager;
  */
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,11 +28,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.NetworkOnMainThreadException;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
@@ -71,16 +73,55 @@ public class MainActivity extends Activity {
     Button mButtonAdd;
     LinearLayout mLayout;
     Vibrator mVibrator;
+    long mSyncDateTimeLong;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+		Editor editor = pref.edit();
+		long value = pref.getLong("lastsyncdate", 0);
+		Toast.makeText(MainActivity.this, "DateTime: " + Long.toString(value), Toast.LENGTH_SHORT).show();
+		
+		if (value == 0){
+			mSyncDateTimeLong = 0;
+		  Toast.makeText(MainActivity.this, "Select Options|Sync to Internet!" + Long.toString(value), Toast.LENGTH_SHORT).show();	
+		}else{
+			mSyncDateTimeLong = value;			
+		}
+		
+		
+//		//this is to manage the last sync date, the first time and subsquent times activity runs
+//		File f = new File("/data/data/com.chuckbolin.weblinkmanager/lastsyncdate.xml");
+//		
+//		if(f.exists()){
+//		  //do nothing this is okay
+//			Toast.makeText(MainActivity.this, "Exists", Toast.LENGTH_SHORT).show();
+//		}
+//		else{
+//		  //Toast.makeText(MainActivity.this, "NOT Exists", Toast.LENGTH_SHORT).show();
+////		  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+////		  Editor editor = pref.edit();
+//		  Date date = new Date(System.currentTimeMillis());		  
+//		  editor.putLong("lastsyncdate", date.getTime());
+//		  editor.commit();
+//		  long value = pref.getLong("lastsyncdate", 0);
+//		  Toast.makeText(MainActivity.this, "Added: " + Long.toString(value), Toast.LENGTH_SHORT).show();
+//		}
+		
 		//adds actionbar
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
-		actionBar.setSubtitle("Last Sync: ");
+		if(mSyncDateTimeLong == 0){
+		  actionBar.setSubtitle("Last Sync: None");
+		}
+		else{
+		  SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		  String dateString = formatter.format(new Date(mSyncDateTimeLong));
+		  actionBar.setSubtitle("Last sync: " + dateString);
+		}
 		
 		mVibrator = (Vibrator)getSystemService(this.VIBRATOR_SERVICE);
 		
@@ -386,6 +427,14 @@ public class MainActivity extends Activity {
 	            public void onClick(DialogInterface dialog,int which) {
 					mDB.deleteAllLinks();
 					UpdateListView();
+					SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+					Editor editor = pref.edit();
+
+					ActionBar actionBar = MainActivity.this.getActionBar();
+ 				    actionBar.setSubtitle("Last Sync: None");					
+					long value = 0;
+					editor.putLong("lastsyncdate", value);
+					editor.commit();						
 					Toast.makeText(MainActivity.this, "All Links Deleted", Toast.LENGTH_SHORT).show();
 	            }
 	        });
@@ -413,10 +462,24 @@ public class MainActivity extends Activity {
 			try {
 				thread.join();
 				UpdateListView(); //updates listview with database data
-				if(syncSuccess)
+				if(syncSuccess){
+					SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+					Editor editor = pref.edit();
+					Date date = new Date(System.currentTimeMillis());
+					long value = date.getTime();
+					editor.putLong("lastsyncdate", value);
+					editor.commit();					
+					mSyncDateTimeLong = value;
+					
+					ActionBar actionBar = this.getActionBar();
+       			    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+					String dateString = formatter.format(new Date(mSyncDateTimeLong));
+					actionBar.setSubtitle("Last sync: " + dateString);
 					Toast.makeText(MainActivity.this, "Sync Complete: " + Integer.toString(countRows) , Toast.LENGTH_SHORT).show();
-				else
+				}	
+				else{
 					Toast.makeText(MainActivity.this, "Sync failed to connect!", Toast.LENGTH_SHORT).show();
+				}
 				
 				countRows = 0;
 			} catch (InterruptedException e) {
@@ -429,6 +492,9 @@ public class MainActivity extends Activity {
 		//============================================================= ACTION IMPORT FILE MENU OPTION
 		case R.id.action_import:
 			Toast.makeText(MainActivity.this, "Import File (not programmed)", Toast.LENGTH_SHORT).show();
+
+			
+
 			return true;
 		
 		//============================================================= ACTION EXPORT FILE MENU OPTION
@@ -473,6 +539,7 @@ public class MainActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+		
 	}
 	
 	public void LaunchLinkInWebBrowser(){
@@ -514,6 +581,8 @@ public class MainActivity extends Activity {
 		mListView.requestLayout();
 		mSelectedItem = -1;
 	}	
+	
+	//public void setSyncDate()
 	
 	//this is secondary thread that runs to read the URL text file
 	//=============================================================================== THREAD FOR SYNC TO INTERNET
