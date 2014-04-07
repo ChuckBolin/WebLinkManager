@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 	private static int ADD_REQUEST_CODE = 115;  //arbitrary numbers to differentiate return
 	private static int EDIT_REQUEST_CODE = 120;
 	private static int EXPORT_IMPORT_CODE = 125;
-	final String textSource = "http://mush4brains.com/files/weblinksmanager/weblinklist.txt";
+	final String textSource = "http://mush4brains.com/files/weblinksmanager/weblinklist5.txt";
 	
 	MySQLiteHelper mDB = new MySQLiteHelper(this); //object used for all database operations
 		
@@ -519,7 +519,9 @@ public class MainActivity extends Activity {
         	
         	try{
     			URL url = new URL(textSource);
-    			InputStreamReader isr =  new InputStreamReader(url.openStream());    			
+    			try{
+    			  InputStreamReader isr =  new InputStreamReader(url.openStream());
+
     			BufferedReader in = new BufferedReader(isr);
     			String line;
     			int countRows = 0;
@@ -567,6 +569,9 @@ public class MainActivity extends Activity {
     			Toast.makeText(getApplicationContext(), "Problem reading URL text file", Toast.LENGTH_SHORT).show();
     		}
         	Log.d(TAG,"Step 3");	
+			}catch(Exception e){
+				//Toast.makeText(getApplicationContext(), "oops", Toast.LENGTH_SHORT).show();
+			}
         } //run		
     }//class Task
 
