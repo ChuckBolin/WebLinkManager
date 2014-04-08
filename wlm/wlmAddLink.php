@@ -10,26 +10,30 @@
   require "dbconnect.php";
   print('<h1>Add Web Link</h1>');
 
-  $con = mysql_connect($sHostName,$sUserName,$sPassword);
-  if (!$con)  {
-    die('Could not connect: ' . mysql_error());
-  }
-  mysql_select_db($sDbName, $con);
-  
-  $sql="INSERT INTO $sDbName.tWebLinks(description, link) 
-        VALUES('$_POST[description]','$_POST[link]')";  
+  //Verify thta URL link is okay
+  if(!filter_var($_POST[link], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)){
+    echo "Invalid URL link: ".$_POST[link];  
+  }else{
+    $con = mysql_connect($sHostName,$sUserName,$sPassword);
+    if (!$con)  {
+      die('Could not connect: ' . mysql_error());
+    }
+    mysql_select_db($sDbName, $con);
+    
+    $sql="INSERT INTO $sDbName.tWebLinks(description, link) 
+          VALUES('$_POST[description]','$_POST[link]')";  
 
-  if (!mysql_query($sql,$con)){
-    die('Error: ' . mysql_error());
+    if (!mysql_query($sql,$con)){
+      die('Error: ' . mysql_error());
+    }
+    echo "1 record added";
+    mysql_close($con);	 
+    
+    $file = "/hsphere/local/home/cbprogra/mush4brains.com/files/weblinksmanager/weblinklist.txt";
+    $rowData = $_POST[description]." || ".$_POST[link]."\n";
+    echo $rowData;
+    file_put_contents($file, $rowData,FILE_APPEND);
   }
-  echo "1 record added";
-  mysql_close($con);	 
-  
-  //$file = "http://www.mush4brains.com/files/weblinksmanager/weblinklist.txt";
-  $file = "/hsphere/local/home/cbprogra/mush4brains.com/files/weblinksmanager/weblinklist.txt";
-  $rowData = $_POST[description]." || ".$_POST[link]."\n";
-  echo $rowData;
-  file_put_contents($file, $rowData,FILE_APPEND);
 ?>
 <br />
 

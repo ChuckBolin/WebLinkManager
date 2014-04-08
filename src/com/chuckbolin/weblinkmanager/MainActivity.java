@@ -9,7 +9,7 @@
 
 package com.chuckbolin.weblinkmanager;
 /*
-
+ *   Useful references
  *   http://commonsware.com/Android/Android_3-6-CC.pdf
  *   http://hmkcode.com/android-simple-sqlite-database-tutorial/
  */
@@ -51,10 +51,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-//import android.widget.LinearLayout;
 
+//MainActivity - program begins here
 public class MainActivity extends Activity {
-	private static String TAG = "MainActivity"; //MainActivity.class.getCanonicalName();
+	
+	private static String TAG = "MainActivity"; 
 	private static int ADD_REQUEST_CODE = 115;  //arbitrary numbers to differentiate return
 	private static int EDIT_REQUEST_CODE = 120;
 	private static int EXPORT_IMPORT_CODE = 125;
@@ -80,6 +81,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		//read preferences "lastsyncdate" and set data member, used for ActionBar
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 		Editor editor = pref.edit();
 		long value = pref.getLong("lastsyncdate", 0);
@@ -91,25 +93,7 @@ public class MainActivity extends Activity {
 		}else{
 			mSyncDateTimeLong = value;			
 		}
-		
-		
-//		//this is to manage the last sync date, the first time and subsquent times activity runs
-//		File f = new File("/data/data/com.chuckbolin.weblinkmanager/lastsyncdate.xml");
-//		
-//		if(f.exists()){
-//		  //do nothing this is okay
-//			Toast.makeText(MainActivity.this, "Exists", Toast.LENGTH_SHORT).show();
-//		}
-//		else{
-//		  //Toast.makeText(MainActivity.this, "NOT Exists", Toast.LENGTH_SHORT).show();
-////		  SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-////		  Editor editor = pref.edit();
-//		  Date date = new Date(System.currentTimeMillis());		  
-//		  editor.putLong("lastsyncdate", date.getTime());
-//		  editor.commit();
-//		  long value = pref.getLong("lastsyncdate", 0);
-//		  Toast.makeText(MainActivity.this, "Added: " + Long.toString(value), Toast.LENGTH_SHORT).show();
-//		}
+
 		
 		//adds actionbar
 		ActionBar actionBar = this.getActionBar();
@@ -463,6 +447,8 @@ public class MainActivity extends Activity {
 				thread.join();
 				UpdateListView(); //updates listview with database data
 				if(syncSuccess){
+					
+					//write current time in milliseconds to lastsyncdate
 					SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 					Editor editor = pref.edit();
 					Date date = new Date(System.currentTimeMillis());
@@ -471,6 +457,7 @@ public class MainActivity extends Activity {
 					editor.commit();					
 					mSyncDateTimeLong = value;
 					
+					//update actionbar subtitle
 					ActionBar actionBar = this.getActionBar();
        			    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 					String dateString = formatter.format(new Date(mSyncDateTimeLong));
@@ -483,7 +470,6 @@ public class MainActivity extends Activity {
 				
 				countRows = 0;
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				Toast.makeText(MainActivity.this, "Nothing to Sync", Toast.LENGTH_SHORT).show();
 			}
 			
@@ -492,8 +478,6 @@ public class MainActivity extends Activity {
 		//============================================================= ACTION IMPORT FILE MENU OPTION
 		case R.id.action_import:
 			Toast.makeText(MainActivity.this, "Import File (not programmed)", Toast.LENGTH_SHORT).show();
-
-			
 
 			return true;
 		
@@ -582,8 +566,6 @@ public class MainActivity extends Activity {
 		mSelectedItem = -1;
 	}	
 	
-	//public void setSyncDate()
-	
 	//this is secondary thread that runs to read the URL text file
 	//=============================================================================== THREAD FOR SYNC TO INTERNET
 	class Task implements Runnable {
@@ -592,18 +574,17 @@ public class MainActivity extends Activity {
         	
         	//let's load everything in the database into a List<WebItems>
         	List<WebItem> webItems = mDB.getAllLinks();
-        	//int countRows = 0;
+
         	try{
     			URL url = new URL(textSource);
     			try{
     			  InputStreamReader isr =  new InputStreamReader(url.openStream());
 
-    			BufferedReader in = new BufferedReader(isr);
-    			String line;
+    			  BufferedReader in = new BufferedReader(isr);
+    			  String line;    			
     			
-    			
-    			//loops through text file
-    			while((line = in.readLine()) != null){
+    			  //loops through text file
+    			  while((line = in.readLine()) != null){
     				
     				//locate delimiter ||
     				int pos = line.indexOf("||");
@@ -646,11 +627,8 @@ public class MainActivity extends Activity {
     		}
         	Log.d(TAG,"Step 3");	
 			}catch(Exception e){
-				//Toast.makeText(getApplicationContext(), "oops", Toast.LENGTH_SHORT).show();
-			
 			}
         } //run		
     }//class Task
-
 }
 

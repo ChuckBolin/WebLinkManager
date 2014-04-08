@@ -36,12 +36,13 @@
       alert('Enter a link:');
       return false;
     }    
-
+/*
     var sRet = y.match(/www./i);
     if(!sRet){
       alert('Link must be a URL!');
       return false;
     }
+   */     
   }  
 
   
