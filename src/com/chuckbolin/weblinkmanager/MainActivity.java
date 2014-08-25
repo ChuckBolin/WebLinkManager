@@ -81,11 +81,12 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+				
 		//read preferences "lastsyncdate" and set data member, used for ActionBar
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 		Editor editor = pref.edit();
 		long value = pref.getLong("lastsyncdate", 0);
-		Toast.makeText(MainActivity.this, "DateTime: " + Long.toString(value), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(MainActivity.this, "DateTime: " + Long.toString(value), Toast.LENGTH_SHORT).show();
 		
 		if (value == 0){
 			mSyncDateTimeLong = 0;
